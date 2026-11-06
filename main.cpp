@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdexcept>
+#include "factory_exception.h"
 #include "keeper.h"
 #include "furniture.h"
 #include "worker.h"
@@ -55,11 +56,49 @@ void test_copy(Keeper &keeper) {
     print_all(copy);
 }
 
+void test_factory_exception() {
+    std::cout << "\n Test FactoryException " << std::endl;
+
+    try {
+        Base* unknown = Keeper::create_object('X');
+        delete unknown;
+        std::cout << "Error: create_object('X') did not throw" << std::endl;
+    }
+    catch (FactoryException &e) {
+        std::cout << "create_object('X'): FactoryException: " << e.what() << std::endl;
+    }
+
+    Keeper empty;
+    try {
+        empty.remove_at(0);
+        std::cout << "Error: remove_at(0) did not throw" << std::endl;
+    }
+    catch (FactoryException &e) {
+        std::cout << "remove_at(0): FactoryException: " << e.what() << std::endl;
+    }
+
+    try {
+        empty.get(0);
+        std::cout << "Error: get(0) did not throw" << std::endl;
+    }
+    catch (FactoryException &e) {
+        std::cout << "get(0): FactoryException: " << e.what() << std::endl;
+    }
+
+    try {
+        throw FactoryException("Test exception");
+    }
+    catch (std::runtime_error &e) {
+        std::cout << "FactoryException is a runtime_error: " << e.what() << std::endl;
+    }
+}
+
 int main() {
     try {
         Keeper keeper;
         test_add(keeper);
         test_copy(keeper);
+	test_factory_exception();
         std::cout << "\nDone" << std::endl;
     }
     catch (std::exception &e) {

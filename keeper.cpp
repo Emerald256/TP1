@@ -1,5 +1,5 @@
 #include "keeper.h"
-#include <stdexcept>
+#include "factory_exception.h"
 #include "furniture.h"
 #include "worker.h"
 #include "car.h"
@@ -64,7 +64,7 @@ Base* Keeper::create_object(char code) {
     if (code == Car::CODE) {
         return new Car();
     }
-    throw std::invalid_argument(std::string("Unknown object kind: ") + code);
+    throw FactoryException(std::string("Unknown object kind: ") + code);
 }
 
 void Keeper::add(Base* b) {
@@ -80,7 +80,7 @@ void Keeper::add(Base* b) {
 
 void Keeper::remove_at(int index) {
     if (index < 0 || index >= count) {
-        throw std::out_of_range("Object index out of range");
+        throw FactoryException("Object index out of range");
     }
     delete items[index];
     if (count == 1) {
@@ -104,7 +104,7 @@ void Keeper::remove_at(int index) {
 
 Base* Keeper::get(int index) const {
     if (index < 0 || index >= count) {
-        throw std::out_of_range("Object index out of range");
+        throw FactoryException("Object index out of range");
     }
     return items[index];
 }
