@@ -104,3 +104,8 @@ char Furniture::type_code() const {
 Base* Furniture::clone() const {
     return new Furniture(*this);
 }
+
+void Furniture::print(std::ostream &os) const {
+    os << "Furniture: " << type << ", " << height << "x" << width << "x" << depth
+       << ", " << color << ", " << material << ", cost " << cost;
+}

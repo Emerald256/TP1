@@ -82,3 +82,8 @@ char Worker::type_code() const {
 Base* Worker::clone() const {
     return new Worker(*this);
 }
+
+void Worker::print(std::ostream &os) const {
+    os << "Worker: " << full_name << ", " << job_title << ", salary " << salary
+       << ", " << address << ", " << phone_number;
+}

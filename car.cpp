@@ -59,3 +59,7 @@ char Car::type_code() const {
 Base* Car::clone() const {
     return new Car(*this);
 }
+
+void Car::print(std::ostream &os) const {
+    os << "Car: " << brand << " " << model << ", " << plate_number;
+}

@@ -6,22 +6,9 @@
 #include "worker.h"
 #include "car.h"
 
-void print_object(Base* b) {
-    if (b->type_code() == Furniture::CODE) {
-        Furniture* f = static_cast<Furniture*>(b);
-        std::cout << "Furniture: " << f->get_type() << ", " << f->get_height() << "x" << f->get_width() << "x"
-                  << f->get_depth() << ", " << f->get_color() << ", " << f->get_material()
-                  << ", cost " << f->get_cost() << std::endl;
-    }
-    else if (b->type_code() == Worker::CODE) {
-        Worker* w = static_cast<Worker*>(b);
-        std::cout << "Worker: " << w->get_full_name() << ", " << w->get_job_title() << ", salary " << w->get_salary()
-                  << ", " << w->get_address() << ", " << w->get_phone_number() << std::endl;
-    }
-    else if (b->type_code() == Car::CODE) {
-        Car* c = static_cast<Car*>(b);
-        std::cout << "Car: " << c->get_brand() << " " << c->get_model() << ", " << c->get_plate_number() << std::endl;
-    }
+void print_object(const Base* b) {
+    b->print(std::cout);
+    std::cout << std::endl;
 }
 
 void print_all(Keeper &keeper) {

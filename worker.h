@@ -31,4 +31,5 @@ public:
 
     char type_code() const override;
     Base* clone() const override;
+    void print(std::ostream &os) const override;
 };
