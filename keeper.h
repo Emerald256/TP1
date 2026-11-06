@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "factory_exception.h"
 #include "base.h"
 
 class Keeper {
@@ -16,7 +17,7 @@ public:
 
     static Base* create_object(char code);    // создает пустой объект по метке вида
 
-    void add(Base* b);                // добавляет указатель в конец
+    void add(Base* b);                // добавляет указатель в конец (невозможно добавление одного и того же объекта без clone())
     void remove_at(int index);        // удаляет объект и убирает указатель из массива
     Base* get(int index) const;
     int get_count() const;

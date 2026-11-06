@@ -64,7 +64,7 @@ void test_factory_exception() {
         delete unknown;
         std::cout << "Error: create_object('X') did not throw" << std::endl;
     }
-    catch (FactoryException &e) {
+    catch (const FactoryException &e) {
         std::cout << "create_object('X'): FactoryException: " << e.what() << std::endl;
     }
 
@@ -73,7 +73,7 @@ void test_factory_exception() {
         empty.remove_at(0);
         std::cout << "Error: remove_at(0) did not throw" << std::endl;
     }
-    catch (FactoryException &e) {
+    catch (const FactoryException &e) {
         std::cout << "remove_at(0): FactoryException: " << e.what() << std::endl;
     }
 
@@ -81,14 +81,14 @@ void test_factory_exception() {
         empty.get(0);
         std::cout << "Error: get(0) did not throw" << std::endl;
     }
-    catch (FactoryException &e) {
+    catch (const FactoryException &e) {
         std::cout << "get(0): FactoryException: " << e.what() << std::endl;
     }
 
     try {
         throw FactoryException("Test exception");
     }
-    catch (std::runtime_error &e) {
+    catch (const std::runtime_error &e) {
         std::cout << "FactoryException is a runtime_error: " << e.what() << std::endl;
     }
 }
@@ -101,7 +101,7 @@ int main() {
 	test_factory_exception();
         std::cout << "\nDone" << std::endl;
     }
-    catch (std::exception &e) {
+    catch (const std::exception &e) {
         std::cout << "Error: " << e.what() << std::endl;
         return 1;
     }

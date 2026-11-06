@@ -68,6 +68,14 @@ Base* Keeper::create_object(char code) {
 }
 
 void Keeper::add(Base* b) {
+    if (b == NULL) {
+        throw FactoryException("Cannot add null object");
+    }
+    for (int i = 0; i < count; i++) {
+        if (items[i] == b) {
+            throw FactoryException("Object is already in this Keeper");
+        }
+    }
     Base** new_arr = new Base*[count + 1];
     for (int i = 0; i < count; i++) {
         new_arr[i] = items[i];
@@ -82,8 +90,8 @@ void Keeper::remove_at(int index) {
     if (index < 0 || index >= count) {
         throw FactoryException("Object index out of range");
     }
-    delete items[index];
     if (count == 1) {
+        delete items[index];
         delete[] items;
         items = NULL;
     }
@@ -96,6 +104,7 @@ void Keeper::remove_at(int index) {
                 j++;
             }
         }
+        delete items[index];
         delete[] items;
         items = new_arr;
     }
