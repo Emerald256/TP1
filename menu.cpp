@@ -8,6 +8,14 @@ static bool is_blank(const std::string &s) {
     return s.find_first_not_of(" \t\r\n") == std::string::npos;
 }
 
+// Убирает пробелы и переводы строк по краям введённой строки
+static std::string trim_copy(const std::string &s) {
+    size_t first = s.find_first_not_of(" \t\r\n");
+    if (first == std::string::npos) return "";
+    size_t last = s.find_last_not_of(" \t\r\n");
+    return s.substr(first, last - first + 1);
+}
+
 // Проверка допустимости имени файла
 static void check_file_name(const std::string &name) {
     if (is_blank(name)) {
@@ -135,6 +143,7 @@ bool Menu::ask_filepath(std::string &filepath, std::string action) {
     print_file_name_rules();
     std::string name = ask_line("File name: ");
     check_file_name(name);
+    folder = trim_copy(folder);
     filepath = join_path(folder, name + ".txt");
     return true;
 }
